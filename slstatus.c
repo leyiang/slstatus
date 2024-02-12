@@ -44,6 +44,7 @@ usage(void)
 	die("usage: %s [-v] [-s] [-1]", argv0);
 }
 
+
 int
 main(int argc, char *argv[])
 {
@@ -53,6 +54,7 @@ main(int argc, char *argv[])
 	int sflag, ret;
 	char status[MAXLEN];
 	const char *res;
+	const char *colors[] = { "#fbf1c7", "#ebdbb2" };
 
 	sflag = 0;
 	ARGBEGIN {
@@ -90,8 +92,12 @@ main(int argc, char *argv[])
 			if (!(res = args[i].func(args[i].args)))
 				res = unknown_str;
 
+			char fmt[100];
+			char *color = colors[i % 2];
+			snprintf(fmt, sizeof(fmt), "^b%s^ %s ", color, args[i].fmt);
+
 			if ((ret = esnprintf(status + len, sizeof(status) - len,
-			                     args[i].fmt, res)) < 0)
+			                   fmt, res)) < 0)
 				break;
 
 			len += ret;

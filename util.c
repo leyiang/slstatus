@@ -89,6 +89,34 @@ bprintf(const char *fmt, ...)
 	return (ret < 0) ? NULL : buf;
 }
 
+float
+fmt_number(uintmax_t num, int base) {
+	double scaled;
+	size_t i, prefixlen;
+	const char *prefix_1000[] = { "", "k", "M", "G", "T", "P", "E", "Z",
+	                              "Y" };
+	const char *prefix_1024[] = { "", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei",
+	                              "Zi", "Yi" };
+
+	switch (base) {
+	case 1000:
+		prefixlen = LEN(prefix_1000);
+		break;
+	case 1024:
+		prefixlen = LEN(prefix_1024);
+		break;
+	default:
+		warn("fmt_human: Invalid base");
+		return 0;
+	}
+
+	scaled = num;
+	for (i = 0; i < prefixlen && scaled >= base; i++)
+		scaled /= base;
+
+	return scaled;
+}
+
 const char *
 fmt_human(uintmax_t num, int base)
 {
@@ -118,7 +146,7 @@ fmt_human(uintmax_t num, int base)
 	for (i = 0; i < prefixlen && scaled >= base; i++)
 		scaled /= base;
 
-	return bprintf("%.1f %s", scaled, prefix[i]);
+	return bprintf("%.1f%s", scaled, prefix[i]);
 }
 
 int

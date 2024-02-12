@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../slstatus.h"
 #include "../util.h"
@@ -71,8 +72,16 @@
 			return NULL;
 
 		used = (total - free - buffers - cached);
-		return fmt_human(used * 1024, 1024);
+
+		float usedRam = fmt_number(used * 1024, 1024);
+		float totalRam = fmt_number(total * 1024, 1024);
+
+		char *buf = malloc(sizeof(char) * 1024);
+		esnprintf(buf, sizeof(char) * 1024, "%.1fG/%.1fG", usedRam, totalRam);
+
+		return buf;
 	}
+
 #elif defined(__OpenBSD__)
 	#include <stdlib.h>
 	#include <sys/sysctl.h>
