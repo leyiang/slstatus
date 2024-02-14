@@ -70,5 +70,5 @@ static const struct arg args[] = {
 	{ datetime,     "%s",           "%F" },
 	{ cpu_perc,     "CPU: %s%%",    NULL },
 	{ run_command,  "\uf028 %s",    "getCurrentVolume" },
-	{ battery_perc, "\uf240 %s%%",         "BAT0" },
+	{ battery_perc, "\uf240  %s%%",         "BAT0" },
 };
