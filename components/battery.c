@@ -56,10 +56,10 @@
 			char *state;
 			char *symbol;
 		} map[] = {
-			{ "Charging",    "+" },
-			{ "Discharging", "-" },
-			{ "Full",        "o" },
-			{ "Not charging", "o" },
+			{ "Charging",    "\uf028" },
+			{ "Discharging", "dis-char" },
+			{ "Full",        "full" },
+			{ "Not charging", "not-char" },
 		};
 		size_t i;
 		char path[PATH_MAX], state[12];
@@ -155,7 +155,7 @@
 			unsigned int state;
 			char *symbol;
 		} map[] = {
-			{ APM_AC_ON,      "+" },
+			{ APM_AC_ON,      "\uf028" },
 			{ APM_AC_OFF,     "-" },
 		};
 		struct apm_power_info apm_info;
@@ -223,7 +223,7 @@
 		switch (state) {
 		case 0: /* FALLTHROUGH */
 		case 2:
-			return "+";
+			return "\uf028";
 		case 1:
 			return "-";
 		default:

@@ -67,8 +67,12 @@ static const char unknown_str[] = "n/a";
 static const struct arg args[] = {
 	/* function     format          argument */
 	{ datetime,     "%s",           "%T" },
-	{ datetime,     "%s",           "%F" },
+	{ datetime,     "%s",           "%F %a" },
+	// { netspeed_tx,   "%s",           "wlp0s20f3" },
+	{ run_command,  "\uf028 %s",    "vol" },
 	{ cpu_perc,     "CPU: %s%%",    NULL },
-	{ run_command,  "\uf028 %s",    "getCurrentVolume" },
-	{ battery_perc, "\uf240  %s%%",         "BAT0" },
+	{ ram_used,     "%s",           NULL },
+	// { battery_state, "%s", "BAT0" },
+	// { battery_perc, "\ue900 \ue902 \ue904 \uf240  %s%%", "BAT0" },
+	{ run_command,  "%2s",    "getBatteryInfo" },
 };
